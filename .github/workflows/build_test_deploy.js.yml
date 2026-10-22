@@ -27,3 +27,21 @@ jobs:
       run: npm run start &
     - name: UI test
       run: npm test
+  deploy:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy backend to Render
+      uses: JorgeLNJunior/render-deploy@v1.4.5
+      with:
+        service_id: ${{ secrets.BACKEND_SERVICEID }}
+        api_key: ${{ secrets.RENDER_API }}
+        wait_deploy: true
+
+    - name: Deploy frontend to Render
+      uses: JorgeLNJunior/render-deploy@v1.4.5
+      with:
+        service_id: ${{ secrets.FRONTEND_SERVICEID }}
+        api_key: ${{ secrets.RENDER_API }}
+        wait_deploy: true
