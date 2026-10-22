@@ -182,8 +182,8 @@ test('Verify redirection of Logout link after user login', async ({ page }) => {
   await page.fill('input[name="password"]', '123456');
   await page.click('input[type="submit"]');
 
-  const logoutLink = await page.$('a[href="javascript:void(0)"]');
-  await logoutLink.click();
+  const logoutLink = page.locator('#logoutBtn');
+  await expect(logoutLink).toBeVisible();
 
   const redirectedURL = page.url();
   expect(redirectedURL).toBe('http://localhost:3000/catalog');
