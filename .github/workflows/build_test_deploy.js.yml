@@ -17,10 +17,10 @@ jobs:
       with:
         node-version: 18.x
         cache: 'npm'
-    - name: Install Playwright browsers
-      run: npx playwright install --with-deps chromium
     - name: Install dependencies
       run: npm install
+    - name: Install Playwright browsers
+      run: npx playwright install --with-deps chromium
     - name: Start Backend
       run: npm run server &
     - name: Start Frontend
